@@ -1,0 +1,6 @@
+//Set an array with every selected objects to apply something on it. Faster than changing a parameter on each object.
+string $array[] = `ls -sl`;
+for ($item in $array)
+{
+    //insert code here
+}
