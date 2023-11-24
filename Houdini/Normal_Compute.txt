@@ -1,0 +1,50 @@
+//______________________________________________________________________________
+//_________________________Get Perpendicular Normal_____________________________
+//______________________________________________________________________________
+
+// Get the curveu and index of the analysed point.
+float curveu = f@curveu;
+int point_num = i@ptnum;
+
+// Seg_Normal is the vector direction between neighbor points. Point_Normal will
+// be the perpendicular normal to the Seg_Normal.
+vector point_Normal, seg_Normal;
+// Neighbor Points Index used to compute the normal.
+int pointA, pointB;
+// Neighbor Point Position
+vector pointA_pos, pointB_pos;
+
+//Check if the point is at the begening or the end of the list of point (curve).
+if (curveu == 0 || curveu == 1)
+{
+    //If it is, it will assign the point to its own last or next neighbor point.
+    if (curveu == 1)
+    {
+        pointA = point_num;
+        pointB = point_num+1;
+        pointA_pos = point(0, "P", pointA);
+        pointB_pos = point(0, "P", pointB);
+    }
+    else 
+    {
+        pointA = point_num-1;
+        pointB = point_num;
+        pointA_pos = point(0, "P", pointA);
+        pointB_pos = point(0, "P", pointB);
+    }
+}
+else
+{
+    //If not, we take the two neighbour points to compute the Normal.
+        pointA = point_num-1;
+        pointB = point_num+1;
+        pointA_pos = point(0, "P", pointA);
+        pointB_pos = point(0, "P", pointB);
+}
+
+// Normalized Direction Vector
+seg_Normal = normalize(pointB_pos - pointA_pos);
+// Perpendicular Vector.
+point_Normal = set(-seg_Normal.z, seg_Normal.y, seg_Normal.x);
+
+v@N = point_Normal;
